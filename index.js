@@ -36,9 +36,14 @@ async function run() {
       const resorts = await cursor.toArray();
       res.send(resorts);
     });
-  }
 
-  finally {
+    //POST API 02.1 for add packages
+    app.post("/packages", async (req, res) => {
+      const addService = req.body;
+      const result = await packageCollection.insertOne(addService);
+      res.json(result);
+    });
+  } finally {
     //   await client.close();
   }
 }
@@ -51,4 +56,3 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
-
